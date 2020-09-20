@@ -50,7 +50,7 @@ Integration of Ktor and Vue the easy way
 
 ### Run using docker
 1. `gradlew build`
-2. ``docker build -t ktor_vue_app .`
+2. `docker build -t ktor_vue_app .`
 3. `docker run -m512M --cpus 2 -it -p 8080:8090 --rm ktor_vue_app`
 4. Open `localhost:8080`
 
