@@ -61,7 +61,7 @@ Integration of Ktor and Vue the easy way
 
 ### Deploy to Heroku
 1. `heroku login`
-2. ``heroku container:login`
+2. `heroku container:login`
 3. `heroku container:push web -a infinite-reef-26326`
 4. `heroku container:release web -a infinite-reef-26326`
 
