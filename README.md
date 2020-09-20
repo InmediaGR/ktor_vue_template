@@ -1,7 +1,7 @@
 ## Description
 Integration of Ktor and Vue the easy way
 
- [Heroku App](https://infinite-reef-26326.herokuapp.com)
+ [Heroku App](https://url-short-srvc.herokuapp.com)
 
 ## Requirements
 1. Vue 3.0.0 [We need the built files in `dist`]
@@ -37,7 +37,7 @@ Integration of Ktor and Vue the easy way
 
 3.  Add `static` route to the `Application`
 
-      ```
+      ```kotlin
       routing {
         ...
             static("/") {
@@ -49,6 +49,24 @@ Integration of Ktor and Vue the easy way
       ```
 
 ### Run using docker
+Create `Dockerfile` in `project root` and use `your_file`.jar (found in `build/libs`)
+```dockerfile
+FROM openjdk:8-jre-alpine
+
+ENV APPLICATION_USER ktor
+RUN adduser -D -g '' $APPLICATION_USER
+
+RUN mkdir /app
+RUN chown -R $APPLICATION_USER /app
+
+USER $APPLICATION_USER
+
+COPY ./build/libs/ktor_vue-0.0.1-all.jar /app/ktor_vue-0.0.1-all.jar
+WORKDIR /app
+
+CMD ["java", "-server", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-XX:InitialRAMFraction=2", "-XX:MinRAMFraction=2", "-XX:MaxRAMFraction=2", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=100", "-XX:+UseStringDeduplication", "-jar", "ktor_vue-0.0.1-all.jar"]
+```
+##### Steps
 1. `gradlew build`
 2. `docker build -t ktor_vue_app .`
 3. `docker run -m512M --cpus 2 -it -p 8080:8090 --rm ktor_vue_app`
@@ -62,10 +80,10 @@ Integration of Ktor and Vue the easy way
 ### Deploy to Heroku
 1. `heroku login`
 2. `heroku container:login`
-3. `heroku container:push web -a infinite-reef-26326`
-4. `heroku container:release web -a infinite-reef-26326`
+3. `heroku container:push web -a url-short-srvc`
+4. `heroku container:release web -a url-short-srvc`
 
-[Heroku App](https://infinite-reef-26326.herokuapp.com)
+[Heroku App](https://url-short-srvc.herokuapp.com)
 
 
 
